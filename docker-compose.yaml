@@ -65,6 +65,8 @@ services:
     depends_on:
       - broker
       - schema-registry
+      - prometheus
+      - alertmanager
     ports:
       - "9021:9021"
     volumes:
