@@ -14,3 +14,10 @@ controlCenter ui is available on localhost:9021
 
 This is copied from cp-all-in-one repository which has more component i.e. flink, ksql and connect. 
 check out [cp-all-in-one](https://github.com/confluentinc/cp-all-in-one/)
+
+
+To stop all the containers 
+
+```shell
+docker compose down
+```
