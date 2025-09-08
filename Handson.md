@@ -42,7 +42,7 @@ Now we are going to see how we can use this enviornment for our need.
 
 to use this we need to have kafka CLIs installed, for today We can use pre installed cli on your docker enviornment.
 
-# optional
+### optional
 
 Create a topic using CLI 
 
