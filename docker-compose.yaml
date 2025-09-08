@@ -83,6 +83,10 @@ services:
       CONTROL_CENTER_PROMETHEUS_RULES_FILE: /mnt/config/trigger_rules-generated.yml
       CONTROL_CENTER_ALERTMANAGER_URL: http://alertmanager:9093
       CONTROL_CENTER_ALERTMANAGER_CONFIG_FILE: /mnt/config/alertmanager-generated.yml
+      CONTROL_CENTER_CONNECT_CLUSTER: ""
+      CONTROL_CENTER_KSQL_URL: ""
+      CONTROL_CENTER_REST_URL: ""
+      CONTROL_CENTER_CMF_HEALTHCHECK_INTERVAL_SEC: 0
       PORT: 9021
   kafkabat:
     image: ghcr.io/kafbat/kafka-ui:latest
