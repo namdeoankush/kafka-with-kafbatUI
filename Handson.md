@@ -1,172 +1,140 @@
-# To Do
+### Introduction
 
-## Table of Contents
-- [Installation](#installation)
-- [Navigating](#navigating)
-- [Clients-1](#clients-1)
-- [Clients-2](#clients-2)
+This guide provides a comprehensive walkthrough for setting up and interacting with a Kafka environment using Docker Compose, KafbatUI, and Confluent's command-line tools. It covers essential operations from initial setup to producing and consuming messages, including a practical demonstration of using Schema Registry with Avro messages.
 
+-----
 
-## Installation
-1. Clone this repository:
-```bash
- git clone https://github.com/namdeoankush/kafka-with-kafbatUI.git
-```
-2. Go inside the root folder
-```bash
- cd kafka-withkafbatUI
-```
+### Table of Contents
 
-3. Run docker compose to bring to container (if this is the first time it can take few minutes as it will pull all the repository from docker hub, being in really good network)
-```bash
- docker compose up -d
-```
+  * [Installation](https://www.google.com/search?q=%23installation)
+  * [Navigating the Environment](https://www.google.com/search?q=%23navigating-the-environment)
+  * [Client-1: Basic Console Producer/Consumer](https://www.google.com/search?q=%23client-1-basic-console-producerconsumer)
+  * [Client-2: Avro Producer/Consumer with Schema Registry](https://www.google.com/search?q=%23client-2-avro-producerconsumer-with-schema-registry)
 
-## Navigating
+-----
 
-Before we move on to the actual data,I want us to see what are environment looks like.
+### Installation
 
-1. Go into localhost:9021 to view control center or localhost:8080 for kafBatUI.
-   
-2. Look for different tabs, topic, schema registory, consumer.
+1.  **Clone the Repository**
+    ```bash
+    git clone https://github.com/namdeoankush/kafka-with-kafbatUI.git
+    ```
+2.  **Navigate to the Root Directory**
+    ```bash
+    cd kafka-with-kafbatUI
+    ```
+3.  **Start the Docker Containers**
+    This command brings up all necessary services. The initial run may take a few minutes as Docker pulls the required images.
+    ```bash
+    docker compose up -d
+    ```
 
-3. To check logs on console you can use docker-desktop or your favourite docker tool.
+-----
 
-4. kafka-UI 101 (creating topic, publishing a message, viewing topic and messages)
+### Navigating the Environment
 
-## Clients-1
+Before we begin, let's explore the tools provided to manage our Kafka environment.
 
-Now we are going to see how we can use this enviornment for our need. 
+1.  **Access the User Interfaces**
+      * **Kafka Control Center:** `http://localhost:9021`
+      * **KafbatUI:** `http://localhost:8080`
+2.  **Explore the UI Tabs**
+    Familiarize yourself with the various tabs like **Topics**, **Schema Registry**, and **Consumers** to monitor your Kafka cluster.
+3.  **Check Container Logs**
+    You can view real-time logs for any container using Docker Desktop or your preferred Docker management tool.
 
-1. Using console commands for producer and consumer (basic).
+-----
 
-to use this we need to have kafka CLIs installed, for today We can use pre installed cli on your docker enviornment.
+### Client-1: Basic Console Producer/Consumer
 
-### optional
+This section demonstrates how to use the basic Kafka command-line interface (CLI) tools, which are pre-installed within the `broker` container.
 
-Create a topic using CLI 
-
-```bash
-docker-compose exec broker \
-  kafka-topics --create \
-  --topic data \
-  --bootstrap-server broker:9092 \
-  --partitions 1 \
-  --replication-factor 1
-```
+**Creating a Topic (Optional)**
+You can create a new topic named `data` using the `kafka-topics` command.
 
 ```bash
 docker-compose exec broker kafka-topics --create --topic data --bootstrap-server broker:9092 --partitions 1 --replication-factor 1
 ```
 
-Verify if the topic is created. Go to kafbatUi or control center. Otherwise we can run list command to get the topic
+**Verify the Topic Creation**
+Confirm the topic's existence by checking KafbatUI/Control Center or by listing all topics from the command line.
 
 ```bash
 docker-compose exec broker kafka-topics --list --bootstrap-server broker:9092
 ```
 
-
-# Creating first producer 
-
-```bash
-docker-compose exec broker \
-  kafka-console-producer \
-  --broker-list broker:9092 \
-  --topic data
-```
+**Creating a Console Producer**
+Start a console producer to send messages to the `data` topic. Type your messages and press enter to send them.
 
 ```bash
-docker-compose exec broker kafka-console-producer --bootstrap-server broker:9092 --topic my-topic
+docker-compose exec broker kafka-console-producer --bootstrap-server broker:9092 --topic data
 ```
 
-Verify the message on UI
-
-# creating first consumer
-
-```bash
-docker-compose exec broker \
-  kafka-console-consumer \
-  --bootstrap-server broker:9092 \
-  --topic data
-```
+**Creating a Console Consumer**
+Start a console consumer to read messages from the `data` topic. You won't see any messages until you run the command with the `--from-beginning` flag.
 
 ```bash
 docker-compose exec broker kafka-console-consumer --bootstrap-server broker:9092 --topic data
 ```
 
-Cant see any messages yet?
-# missing : --from-beginning
+To view all messages from the beginning of the topic:
 
 ```bash
 docker-compose exec broker kafka-console-consumer --bootstrap-server broker:9092 --topic data --from-beginning
 ```
 
+-----
 
-# Deleting a topic (Optional)
+### Client-2: Avro Producer/Consumer with Schema Registry
 
-```bash
-docker-compose exec broker kafka-topics --delete --topic my-topic --bootstrap-server broker:9092
+This section focuses on producing and consuming Avro messages, leveraging the power of Schema Registry for data validation.
+
+**1. Create a Schema File**
+Create a new file named `user-schema.json` and paste the following JSON content into it.
+
+```json
+{"type":"record","name":"User","fields":[{"name":"name","type":"string"},{"name":"age","type":"int"}]}
 ```
 
-## Clients-2
+**2. Copy the Schema to the Container**
+Copy your local schema file into the `schema-registry` container so the producer can access it.
 
-Now we have seen the how we can produce and consume message, Now moving ahead, as we have talked about schema and using schema registry now We are going to see that in practical. The CP-server have basic kafka cli not the schema registry cli so we will do that against schema registry container. Alternatively we could install confluent cli, or cp-tools which gives access to these advance cli option out of box.
-
-
-# Create a schema file first
-
-we have some formatting issue on windows(I am not an expert so I thought of alternative approch)
-
-notepad user-scheam1.json
-
-paste below schema and save it: 
-{"type":"record","name":"User","fields":[{"name":"name","type":"string"},{"name":"age","type":"int"}]}
-
-
-# Then copy it to the container and reference it
 ```bash
 docker cp user-schema.json schema-registry:/tmp/user-schema.json
-
-
-docker-compose exec schema-registry kafka-avro-console-producer --bootstrap-server broker:9092 --topic users --property schema.registry.url=http://schema-registry:8081 --property value.schema.file=/tmp/user-schema.json
-
 ```
- past this message once your curser is idle, one by one
-{"name":"Charlie","age":28}
 
-{"name":"Dana","age":35}
-
-
-verify the message on UI.
-
-you can also see the schema on schema registry section.
-
-Now if you have producer running already try  publishing a message which doesnt follow the same schema.
-{"name":"Dana","age":35, "test":1}
-
-now try another message
-
-{"name":"Dana", "test":1}
-
-this last message should give you error. This is one use case or one good thing about using schema registry. your data doesnt end up on kafka and is rejected from schema registry already before being published to kafka.
-
-
-Now Lets consume this message from consumer, lets try runnning normal consumer on this topic.
+**3. AVRO Console Producer**
+Run the Avro producer, referencing the schema file you just copied. The producer will validate messages against this schema before sending them to the `users` topic.
 
 ```bash
-docker-compose exec broker \
-  kafka-console-consumer \
-  --bootstrap-server broker:9092 \
-  --topic users
+docker-compose exec schema-registry kafka-avro-console-producer --bootstrap-server broker:9092 --topic users --property schema.registry.url=http://schema-registry:8081 --property value.schema.file=/tmp/user-schema.json
 ```
+
+Enter the following messages one by one:
+
+  * `{"name":"Charlie","age":28}`
+  * `{"name":"Dana","age":35}`
+
+**Verify the Messages and Schema**
+Check KafbatUI to see the published messages. You can also inspect the registered schema in the **Schema Registry** section of the UI.
+
+**Test Schema Validation**
+Try to publish a message that violates the schema. The Schema Registry will reject it, demonstrating its role in maintaining data integrity.
+
+  * **Valid:** `{"name":"Dana","age":35, "test":1}`
+  * **Invalid:** `{"name":"Dana", "test":1}` (This message should be rejected and not end up on the Kafka topic).
+
+**4. AVRO Console Consumer**
+You cannot read Avro messages with a standard console consumer because they are serialized with Avro formatting.
 
 ```bash
 docker-compose exec broker kafka-console-consumer --bootstrap-server broker:9092 --topic users --from-beginning
 ```
 
-now try avro console consumer : 
+This will display unreadable output.
+
+Instead, use the `kafka-avro-console-consumer` to deserialize the messages correctly.
 
 ```bash
 docker-compose exec schema-registry kafka-avro-console-consumer --bootstrap-server broker:29092 --topic users --from-beginning --property schema.registry.url=http://schema-registry:8081
 ```
-
