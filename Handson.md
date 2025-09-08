@@ -3,8 +3,8 @@
 ## Table of Contents
 - [Installation](#installation)
 - [Navigating](#navigating)
-- [Clients - 1](#clients - 1)
-- [Client - 2](#clients -2)
+- [Clients -1](#clients -1)
+- [Clients -2](#clients -2)
 
 
 ## Installation
@@ -108,7 +108,7 @@ docker-compose exec broker kafka-console-consumer --bootstrap-server broker:9092
 docker-compose exec broker kafka-topics --delete --topic my-topic --bootstrap-server broker:9092
 ```
 
-## Client -2
+## Clients -2
 
 Now we have seen the how we can produce and consume message, Now moving ahead, as we have talked about schema and using schema registry now We are going to see that in practical. The CP-server have basic kafka cli not the schema registry cli so we will do that against schema registry container. Alternatively we could install confluent cli, or cp-tools which gives access to these advance cli option out of box.
 
