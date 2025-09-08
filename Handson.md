@@ -3,7 +3,7 @@
 ## Table of Contents
 - [Installation](#installation)
 - [Navigating](#navigating)
-- [Clients -1](#clients -1)
+- [Clients -basic](#clients-basic)
 - [Clients -2](#clients -2)
 
 
