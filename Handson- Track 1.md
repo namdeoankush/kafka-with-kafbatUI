@@ -10,7 +10,7 @@ This guide provides a comprehensive walkthrough for setting up and interacting w
   * [Environment](#environment)
   * [Client-1: Basic Console Producer/Consumer](#client-1-basic-console-producerconsumer)
   * [Client-2: Avro Producer/Consumer with Schema Registry](#client-2-avro-producerconsumer-with-schema-registry)
-  * [Client-3: Java client](#client-3-java-client)
+  * [Client-3: Java clients](#client-3-java-clients)
   * [Client-4: Rest Api](#client-4-rest-api)
 
 -----
