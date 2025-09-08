@@ -6,10 +6,11 @@ This guide provides a comprehensive walkthrough for setting up and interacting w
 
 ### Table of Contents
 
-  * [Installation](https://www.google.com/search?q=%23installation)
-  * [Navigating the Environment](https://www.google.com/search?q=%23navigating-the-environment)
-  * [Client-1: Basic Console Producer/Consumer](https://www.google.com/search?q=%23client-1-basic-console-producerconsumer)
-  * [Client-2: Avro Producer/Consumer with Schema Registry](https://www.google.com/search?q=%23client-2-avro-producerconsumer-with-schema-registry)
+  - [Installation](#installation)
+  - [Environment](#environment)
+  * [Client-1: Basic Console Producer/Consumer](#client-1-basic-console-producerconsumer)
+  * [Client-2: Avro Producer/Consumer with Schema Registry](#client-2-avro-producerconsumer-with-schema-registry)
+  * [Client-3: Java client](#client-3-avro-producerconsumer-with-schema-registry)
 
 -----
 
@@ -31,7 +32,7 @@ This guide provides a comprehensive walkthrough for setting up and interacting w
 
 -----
 
-### Navigating the Environment
+### Environment
 
 Before we begin, let's explore the tools provided to manage our Kafka environment.
 
@@ -138,3 +139,16 @@ Instead, use the `kafka-avro-console-consumer` to deserialize the messages corre
 ```bash
 docker-compose exec schema-registry kafka-avro-console-consumer --bootstrap-server broker:29092 --topic users --from-beginning --property schema.registry.url=http://schema-registry:8081
 ```
+
+### Client-3: Java Clients
+
+**1. Basic Java consumers & Producer**
+
+We will use [https://github.com/confluentinc/tutorials/](https://github.com/confluentinc/tutorials/) for creating java clients. Prerequisites for this is to have Gradle, java setup on machines. 
+
+**2. Avro java consumer & Producer**
+
+We will use [https://docs.confluent.io/platform/current/schema-registry/schema_registry_onprem_tutorial.html](https://docs.confluent.io/platform/current/schema-registry/schema_registry_onprem_tutorial.html). Prerequisites for this is to have Maven, java setup on machines.
+
+### Client-4: Rest API
+Follow on screen
