@@ -2,6 +2,8 @@
 
 This is CP 8.0 with new control center. It has an additional UI kafBatUI as requested.
 
+![image](CPwithkafbatUI.png)
+
 simply run: 
 
 ```shell
