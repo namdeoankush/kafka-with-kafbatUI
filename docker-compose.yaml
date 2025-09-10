@@ -86,7 +86,7 @@ services:
       CONTROL_CENTER_CONNECT_CLUSTER: ""
       CONTROL_CENTER_KSQL_URL: ""
       CONTROL_CENTER_REST_URL: ""
-      CONTROL_CENTER_CMF_HEALTHCHECK_INTERVAL_SEC: 0
+      CONTROL_CENTER_CMF_HEALTHCHECK_INTERVAL_SEC: 60000
       PORT: 9021
   kafkabat:
     image: ghcr.io/kafbat/kafka-ui:latest
