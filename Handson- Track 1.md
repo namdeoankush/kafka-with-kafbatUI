@@ -27,6 +27,7 @@ This guide provides a comprehensive walkthrough for setting up and interacting w
 4. Java 11 or 17
 5. Maven for Client-3: Java Clients (Avro java consumer & Producer) // As mentioned in [https://docs.confluent.io/platform/current/schema-registry/schema_registry_onprem_tutorial.html#prerequisites](https://docs.confluent.io/platform/current/schema-registry/schema_registry_onprem_tutorial.html#prerequisites)
 
+-----
 
 ### Installation
 
