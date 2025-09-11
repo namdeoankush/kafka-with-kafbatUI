@@ -6,12 +6,14 @@ This guide provides a comprehensive walkthrough for setting up and interacting w
 
 ### Table of Contents
 
-  * [Installation](#installation)
-  * [Environment](#environment)
-  * [Client-1: Basic Console Producer/Consumer](#client-1-basic-console-producerconsumer)
-  * [Client-2: Avro Producer/Consumer with Schema Registry](#client-2-avro-producerconsumer-with-schema-registry)
-  * [Client-3: Java clients](#client-3-java-clients)
-  * [Client-4: Rest Api](#client-4-rest-api)
+- [Introduction](#introduction)
+- [Table of Contents](#table-of-contents)
+- [Installation](#installation)
+- [Environment](#environment)
+- [Client-1: Basic Console Producer/Consumer](#client-1-basic-console-producerconsumer)
+- [Client-2: Avro Producer/Consumer with Schema Registry](#client-2-avro-producerconsumer-with-schema-registry)
+- [Client-3: Java Clients](#client-3-java-clients)
+- [Client-4: Rest API](#client-4-rest-api)
 
 -----
 
@@ -91,25 +93,39 @@ docker-compose exec broker kafka-console-consumer --bootstrap-server broker:9092
 
 This section focuses on producing and consuming Avro messages, leveraging the power of Schema Registry for data validation.
 
-**1. Create a Schema File**
+**1. Create users Topic**
+Create a new topic names `users` which we gonna use push data serialized with schema.
+
+```bash
+docker-compose exec broker kafka-topics --create --topic data --bootstrap-server broker:9092 --partitions 1 --replication-factor 1
+```
+
+**Veriy topic is created**
+Confirm the topic's existence by checking KafbatUI/Control Center or by listing all topics from the command line.
+
+```bash
+docker-compose exec broker kafka-topics --list --bootstrap-server broker:9092 |grep users
+```
+
+**2. Create a Schema File**
 Create a new file named `user-schema.json` and paste the following JSON content into it.
 
 ```json
 {"type":"record","name":"User","fields":[{"name":"name","type":"string"},{"name":"age","type":"int"}]}
 ```
 
-**2. Copy the Schema to the Container**
+**3. Copy the Schema to the Container**
 Copy your local schema file into the `schema-registry` container so the producer can access it.
 
 ```bash
 docker cp user-schema.json schema-registry:/tmp/user-schema.json
 ```
 
-**3. AVRO Console Producer**
+**4. AVRO Console Producer**
 Run the Avro producer, referencing the schema file you just copied. The producer will validate messages against this schema before sending them to the `users` topic.
 
 ```bash
-docker-compose exec schema-registry kafka-avro-console-producer --bootstrap-server broker:9092 --topic users --property schema.registry.url=http://schema-registry:8081 --property value.schema.file=/tmp/user-schema.json
+docker-compose exec schema-registry kafka-avro-console-producer --bootstrap-server broker:29092 --topic users --property schema.registry.url=http://schema-registry:8081 --property value.schema.file=/tmp/user-schema.json
 ```
 
 Enter the following messages one by one:
