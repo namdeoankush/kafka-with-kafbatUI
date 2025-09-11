@@ -21,12 +21,12 @@ This guide provides a comprehensive walkthrough for setting up and interacting w
 
 **Prerequisite**
 
-a. Running Docker
-b. Run this installation in advance as it involves some large downloads.
+1. Running Docker
+2. Run this installation in advance as it involves some large downloads.
     For Clients:
-c. Gradle
-d. Java 11 or 17
-e. Maven for Client-3: Java Clients (Avro java consumer & Producer) // As mentioned in [https://docs.confluent.io/platform/current/schema-registry/schema_registry_onprem_tutorial.html#prerequisites](https://docs.confluent.io/platform/current/schema-registry/schema_registry_onprem_tutorial.html#prerequisites)
+3. Gradle
+4. Java 11 or 17
+5. Maven for Client-3: Java Clients (Avro java consumer & Producer) // As mentioned in [https://docs.confluent.io/platform/current/schema-registry/schema_registry_onprem_tutorial.html#prerequisites](https://docs.confluent.io/platform/current/schema-registry/schema_registry_onprem_tutorial.html#prerequisites)
 
 
 1.  **Clone the Repository**
