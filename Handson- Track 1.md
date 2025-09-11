@@ -19,6 +19,14 @@ This guide provides a comprehensive walkthrough for setting up and interacting w
 
 ### Installation
 
+**Prerequisite**
+a. Running Docker
+b. Run this installation in advance as it involves some large downloads.
+    For Clients:
+c. Gradle
+d. Java 11 or 17
+e. Maven for Client-3: Java Clients (Avro java consumer & Producer) // As mentioned in [https://docs.confluent.io/platform/current/schema-registry/schema_registry_onprem_tutorial.html#prerequisites](https://docs.confluent.io/platform/current/schema-registry/schema_registry_onprem_tutorial.html#prerequisites)
+
 1.  **Clone the Repository**
     ```bash
     git clone https://github.com/namdeoankush/kafka-with-kafbatUI.git
@@ -75,11 +83,14 @@ docker-compose exec broker kafka-console-producer --bootstrap-server broker:9092
 ```
 
 **Creating a Console Consumer**
-Start a console consumer to read messages from the `data` topic. You won't see any messages until you run the command with the `--from-beginning` flag.
 
+
+Start a console consumer to read messages from the `data` topic. You won't see any messages until you run the command with the `--from-beginning` flag.
+In a new terminal window run follwing: 
 ```bash
 docker-compose exec broker kafka-console-consumer --bootstrap-server broker:9092 --topic data
 ```
+control +c or cmd + c to kill the consumer.
 
 To view all messages from the beginning of the topic:
 
@@ -92,7 +103,7 @@ docker-compose exec broker kafka-console-consumer --bootstrap-server broker:9092
 ### Client-2: Avro Producer/Consumer with Schema Registry
 
 This section focuses on producing and consuming Avro messages, leveraging the power of Schema Registry for data validation.
-
+In a new terminal window run follwing: 
 **1. Create users Topic**
 Create a new topic names `users` which we gonna use push data serialized with schema.
 
@@ -108,7 +119,8 @@ docker-compose exec broker kafka-topics --list --bootstrap-server broker:9092 |g
 ```
 
 **2. Create a Schema File**
-Create a new file named `user-schema.json` and paste the following JSON content into it.
+Create a new file named `user-schema.json` inside kafka-with-kafbatUI directory
+ and paste the following JSON content into it.
 
 ```json
 {"type":"record","name":"User","fields":[{"name":"name","type":"string"},{"name":"age","type":"int"}]}
@@ -144,6 +156,7 @@ Try to publish a message that violates the schema. The Schema Registry will reje
 
 **4. AVRO Console Consumer**
 You cannot read Avro messages with a standard console consumer because they are serialized with Avro formatting.
+In a new terminal window run follwing: 
 
 ```bash
 docker-compose exec broker kafka-console-consumer --bootstrap-server broker:9092 --topic users --from-beginning
@@ -169,3 +182,12 @@ We will use [https://docs.confluent.io/platform/current/schema-registry/schema_r
 
 ### Client-4: Rest API
 Follow on screen
+
+
+# Clean-up
+To destroy the docker environment use 
+
+```bash
+docker-compose down -v
+```
+
