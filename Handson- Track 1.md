@@ -8,6 +8,7 @@ This guide provides a comprehensive walkthrough for setting up and interacting w
 
 - [Introduction](#introduction)
 - [Table of Contents](#table-of-contents)
+- [Prerequisite](#Prerequisite)
 - [Installation](#installation)
 - [Environment](#environment)
 - [Client-1: Basic Console Producer/Consumer](#client-1-basic-console-producerconsumer)
@@ -17,9 +18,7 @@ This guide provides a comprehensive walkthrough for setting up and interacting w
 
 -----
 
-### Installation
-
-**Prerequisite**
+### Prerequisite
 
 1. Running Docker
 2. Run this installation in advance as it involves some large downloads.
@@ -28,6 +27,8 @@ This guide provides a comprehensive walkthrough for setting up and interacting w
 4. Java 11 or 17
 5. Maven for Client-3: Java Clients (Avro java consumer & Producer) // As mentioned in [https://docs.confluent.io/platform/current/schema-registry/schema_registry_onprem_tutorial.html#prerequisites](https://docs.confluent.io/platform/current/schema-registry/schema_registry_onprem_tutorial.html#prerequisites)
 
+
+### Installation
 
 1.  **Clone the Repository**
     ```bash
