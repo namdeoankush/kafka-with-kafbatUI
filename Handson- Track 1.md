@@ -184,11 +184,13 @@ We will use [https://github.com/confluentinc/tutorials/](https://github.com/conf
 
 We will use [https://docs.confluent.io/platform/current/schema-registry/schema_registry_onprem_tutorial.html](https://docs.confluent.io/platform/current/schema-registry/schema_registry_onprem_tutorial.html). Prerequisites for this is to have Maven, java setup on machines.
 
+-----
+
 ### Client-4: Rest API
 Follow on screen
 
-
-# Clean-up
+-----
+### Clean-up
 To destroy the docker environment use 
 
 ```bash
