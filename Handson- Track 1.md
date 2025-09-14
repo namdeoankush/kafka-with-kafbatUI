@@ -1,4 +1,4 @@
-# 🚀 Kafka with KafbatUI Guide
+# Kafka with KafbatUI Guide
 
 This guide provides a comprehensive walkthrough for setting up and interacting with a Kafka environment using **Docker Compose**, **KafbatUI**, and **Confluent's CLI tools**.  
 
@@ -8,19 +8,19 @@ It covers everything from the initial setup to producing and consuming messages,
 
 ## 📑 Table of Contents
 
-- [Introduction](#-kafka-with-kafbatui-guide)  
-- [Prerequisites](#-prerequisites)  
-- [Installation](#-installation)  
-- [Environment](#-environment)  
-- [Client-1: Basic Console Producer/Consumer](#️-client-1-basic-console-producerconsumer)  
-- [Client-2: Avro Producer/Consumer with Schema Registry](#-client-2-avro-producerconsumer-with-schema-registry)  
-- [Client-3: Java Clients](#-client-3-java-clients)  
-- [Client-4: REST API](#-client-4-rest-api)  
-- [Clean-up](#-clean-up)  
+- [Introduction](#kafka-with-kafbatui-guide)  
+- [Prerequisites](#prerequisites)  
+- [Installation](#installation)  
+- [Environment](#environment)  
+- [Client-1: Basic Console Producer/Consumer](#️client-1-basic-console-producerconsumer)  
+- [Client-2: Avro Producer/Consumer with Schema Registry](#client-2-avro-producerconsumer-with-schema-registry)  
+- [Client-3: Java Clients](#client-3-java-clients)  
+- [Client-4: REST API](#client-4-rest-api)  
+- [Clean-up](#clean-up)  
 
 ---
 
-## ✅ Prerequisites
+## Prerequisites
 
 - 🐳 Running **Docker**  
 - 📦 **Gradle**  
@@ -32,7 +32,7 @@ It covers everything from the initial setup to producing and consuming messages,
 
 ---
 
-## ⚙️ Installation
+## Installation
 
 1. **Clone the Repository**
    ```bash
@@ -52,7 +52,7 @@ It covers everything from the initial setup to producing and consuming messages,
 
 ---
 
-## 🌍 Environment
+## Environment
 
 Before we begin, let’s explore the tools available to manage our Kafka environment:
 
@@ -68,7 +68,7 @@ Before we begin, let’s explore the tools available to manage our Kafka environ
 
 ---
 
-## 🖥️ Client-1: Basic Console Producer/Consumer
+## Client-1: Basic Console Producer/Consumer
 
 Kafka CLI tools are pre-installed inside the `broker` container.
 
@@ -104,7 +104,7 @@ docker-compose exec broker kafka-console-consumer   --bootstrap-server broker:90
 
 ---
 
-## 🏗️ Client-2: Avro Producer/Consumer with Schema Registry
+## Client-2: Avro Producer/Consumer with Schema Registry
 
 This section demonstrates producing and consuming Avro messages with **Schema Registry**.
 
@@ -161,7 +161,7 @@ docker-compose exec schema-registry kafka-avro-console-consumer   --bootstrap-se
 
 ---
 
-## 💻 Client-3: Java Clients
+## Client-3: Java Clients
 
 ### 1. Basic Java Producer/Consumer
 Use [Confluent Tutorials](https://github.com/confluentinc/tutorials/) with **Gradle + Java**.
@@ -235,13 +235,13 @@ Rebuild and produce again:
 
 ---
 
-## 🌐 Client-4: REST API
+## Client-4: REST API
 
 Follow on-screen instructions via **Confluent REST Proxy** (if enabled).
 
 ---
 
-## 🧹 Clean-up
+## Clean-up
 
 To remove containers and volumes:
 
