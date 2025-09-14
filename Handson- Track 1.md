@@ -80,7 +80,7 @@ docker-compose exec broker kafka-topics --list --bootstrap-server broker:9092
 ```
 
 **Creating a Console Producer**
-Start a console producer to send messages to the `data` topic. Type your messages and press enter to send them.
+Start a console producer to send messages to the `data` topic. Type your messages and press Enter to send them.
 
 ```bash
 docker-compose exec broker kafka-console-producer --bootstrap-server broker:9092 --topic data
@@ -90,7 +90,7 @@ docker-compose exec broker kafka-console-producer --bootstrap-server broker:9092
 
 
 Start a console consumer to read messages from the `data` topic. You won't see any messages until you run the command with the `--from-beginning` flag.
-In a new terminal window run follwing: 
+In a new terminal window, run the following: 
 ```bash
 docker-compose exec broker kafka-console-consumer --bootstrap-server broker:9092 --topic data
 ```
@@ -107,15 +107,15 @@ docker-compose exec broker kafka-console-consumer --bootstrap-server broker:9092
 ### Client-2: Avro Producer/Consumer with Schema Registry
 
 This section focuses on producing and consuming Avro messages, leveraging the power of Schema Registry for data validation.
-In a new terminal window run follwing: 
+In a new terminal window, run the following: 
 **1. Create users Topic**
-Create a new topic names `users` which we gonna use push data serialized with schema.
+Create a new topic named `users` which we gonna use to push data serialized with a schema.
 
 ```bash
 docker-compose exec broker kafka-topics --create --topic data --bootstrap-server broker:9092 --partitions 1 --replication-factor 1
 ```
 
-**Veriy topic is created**
+**Verify topic is created**
 Confirm the topic's existence by checking KafbatUI/Control Center or by listing all topics from the command line.
 
 ```bash
@@ -178,11 +178,63 @@ docker-compose exec schema-registry kafka-avro-console-consumer --bootstrap-serv
 
 **1. Basic Java consumers & Producer**
 
-We will use [https://github.com/confluentinc/tutorials/](https://github.com/confluentinc/tutorials/) for creating java clients. Prerequisites for this is to have Gradle, java setup on machines. 
+We will use [https://github.com/confluentinc/tutorials/](https://github.com/confluentinc/tutorials/) for creating Java clients. Prerequisites for this are to have Gradle and Java set up on machines. 
 
 **2. Avro java consumer & Producer**
 
-We will use [https://docs.confluent.io/platform/current/schema-registry/schema_registry_onprem_tutorial.html](https://docs.confluent.io/platform/current/schema-registry/schema_registry_onprem_tutorial.html). Prerequisites for this is to have Maven, java setup on machines.
+* **For Maven:**
+We will use [https://docs.confluent.io/platform/current/schema-registry/schema_registry_onprem_tutorial.html](https://docs.confluent.io/platform/current/schema-registry/schema_registry_onprem_tutorial.html). Prerequisites for this are to have Maven and Java set up on the machines.
+
+* **For Gradle:**
+We can use [https://github.com/namdeoankush/kafka-schema-registry-clients.git](https://github.com/namdeoankush/kafka-schema-registry-clients.git). This has AVRO, Protobuf, and JSON clients. For this exercise, we will focus only on AVRO clients.
+
+            First, let's check out this repository:
+```bash
+git checkout https://github.com/namdeoankush/kafka-schema-registry-clients.git && cd kafka.schema-registry-clients
+```
+
+Now let's build the Gradle app.
+
+**1. We need to run the Gradle wrapper first
+
+```bash
+gradle wrapper
+```
+**2. Once the wrapper command runs without any errors, it's time to build the application.
+
+```bash
+./gradlew clean build
+```
+**3. Producing Avro message on 'example-avro-topic' topic:
+
+#### Produce an Avro message
+./gradlew run --args="avro produce"
+
+#### Consume Avro messages
+./gradlew run --args="avro consume"
+
+Now to check the compatibility, we will delete the Name field from the schema, change the code in the Avro producer so the code doesn't populate this field (not doing this will throw a  compilation error during build).
+
+Now we will run the build command again: 
+
+```bash
+./gradlew clean build
+```
+and run the same produce command that we did earlier. As you can see, it allows you to send the message as the deleting field is backward compatible.
+
+Now go to UI and check the schema; there should be a new schema version 2 available. 
+
+Now to test when backward compatibility doesn't work 
+
+We will try to add a new field in the schema and produce a new message using that field. 
+
+Add {"name": "address", "type": "string"} in the schema. Build the Gradle app.
+
+run the command to produce the message again. You should see an error similar to this: 
+
+```bash
+Schema being registered is incompatible with an earlier schema for subject "example-avro-topic-value", details: [{errorType:'READER_FIELD_MISSING_DEFAULT_VALUE', description:'The field 'address' at path '/fields/2' in the new schema has no default value and is missing in the old schema', additionalInfo:'address'}, {oldSchemaVersion: 2}, {oldSchema: '{"type":"record","name":"User","namespace":"com.example.avro","fields":[{"name":"id","type":"long"},{"name":"email","type":["null",{"type":"string","avro.java.string":"String"}],"default":null}]}'}, {validateFields: 'false', compatibility: 'BACKWARD'}]; error code: 409
+```
 
 -----
 
