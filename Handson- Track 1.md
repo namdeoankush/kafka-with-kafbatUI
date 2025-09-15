@@ -166,6 +166,54 @@ docker-compose exec schema-registry kafka-avro-console-consumer   --bootstrap-se
 ### 1. Basic Java Producer/Consumer
 Use [Confluent Tutorials](https://github.com/confluentinc/tutorials/) with **Gradle + Java**.
 
+```
+For this it is a multi module project so we are going to some module of it
+
+```bash
+git checkout https://github.com/confluentinc/tutorials.git
+```
+
+**For producer**
+```bash
+cd kafka-producer-application/kafka
+```
+
+on the readme file of this project we can ignore all the technical code mentioned and focus on the section 
+
+#### Run with Confluent Local
+
+ here as we have already docker environment available we are not going to install confluent local but going to point our app to our local kafka cluster.
+
+ ```bash
+./gradlew :kafka-producer-application:kafka:shadowJar
+
+java -jar kafka-producer-application/kafka/build/libs/kafka-producer-application-standalone.jar **host:port** kafka-producer-application/kafka/input.txt
+
+```
+
+above should produce some messages to kafka.
+
+**For Consumer**
+
+```bash
+cd kafka-consumer-application/kafka/
+```
+
+on the readme file of this project we can ignore all the technical code mentioned and focus on the section 
+
+#### Run with Confluent Local
+
+ here as we have already docker environment available we are not going to install confluent local but going to point our app to our local kafka cluster.
+
+ ```bash
+./gradlew :kafka-consumer-application:kafka:shadowJar
+
+java -jar kafka-consumer-application/kafka/build/libs/kafka-consumer-application-standalone.jar host:port consumer1
+
+```
+You should see some message coming on console.
+
+
 ### 2. Avro Java Producer/Consumer
 
 - **Maven** → [Confluent Schema Registry Tutorial](https://docs.confluent.io/platform/current/schema-registry/schema_registry_onprem_tutorial.html)  
