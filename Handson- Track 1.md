@@ -166,7 +166,6 @@ docker-compose exec schema-registry kafka-avro-console-consumer   --bootstrap-se
 ### 1. Basic Java Producer/Consumer
 Use [Confluent Tutorials](https://github.com/confluentinc/tutorials/) with **Gradle + Java**.
 
-```
 For this it is a multi module project so we are going to some module of it
 
 ```bash
