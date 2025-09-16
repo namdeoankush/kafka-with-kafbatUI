@@ -1,5 +1,7 @@
 # Kafka with KafbatUI Guide (Windows)
 
+## This is an AI generated file, so it needs validation
+
 This guide provides a comprehensive walkthrough for setting up and interacting with a Kafka environment using **Docker Compose**, **KafbatUI**, and **Confluent's CLI tools** on **Windows PowerShell**.
 
 It covers everything from the initial setup to producing and consuming messages, including a practical demonstration of **Schema Registry** with **Avro messages**.
