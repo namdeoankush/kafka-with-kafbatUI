@@ -173,9 +173,6 @@ git checkout https://github.com/confluentinc/tutorials.git
 ```
 
 **For producer**
-```bash
-cd kafka-producer-application/kafka
-```
 
 on the readme file of this project we can ignore all the technical code mentioned and focus on the section 
 
@@ -194,20 +191,16 @@ above should produce some messages to kafka.
 
 **For Consumer**
 
-```bash
-cd kafka-consumer-application/kafka/
-```
-
 on the readme file of this project we can ignore all the technical code mentioned and focus on the section 
 
-#### Run with Confluent Local
+#### Run with Confluent Local (ignore)
 
  here as we have already docker environment available we are not going to install confluent local but going to point our app to our local kafka cluster.
 
  ```bash
 ./gradlew :kafka-consumer-application:kafka:shadowJar
 
-java -jar kafka-consumer-application/kafka/build/libs/kafka-consumer-application-standalone.jar host:port consumer1
+java -jar kafka-consumer-application/kafka/build/libs/kafka-consumer-application-standalone.jar **host:port** consumer1
 
 ```
 You should see some message coming on console.
