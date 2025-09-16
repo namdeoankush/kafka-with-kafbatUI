@@ -72,7 +72,7 @@ Before we begin, let’s explore the tools available to manage our Kafka environ
 
 Kafka CLI tools are pre-installed inside the `broker` container.
 
-### 1. Create a Topic (Optional)
+### 1. Create a Topic
 ```bash
 docker-compose exec broker kafka-topics --create --topic data   --bootstrap-server broker:9092 --partitions 1 --replication-factor 1
 ```
